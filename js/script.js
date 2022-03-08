@@ -41,7 +41,7 @@ const validateInput = function(input) {
     if (input.length === 0) {
         message.innerText = "please enter A letter.";
     } else if (input.length > 1) {
-        message.innerText = "Please enther a single letter.";
+        message.innerText = "Please enter a single letter.";
     } else if (!input.match(acceptedLetter)) {
         message.innerText = "Please enter a letter from A-Z.";
     } else {
@@ -56,5 +56,38 @@ const makeGuess = function(guess) {
     } else {
         guessedLetters.push(guess);
         console.log(guessedLetters);
+        showGuessedLetters();
+        updateWordInProgress(guessedLetters);
+    }
+};
+
+const showGuessedLetters = function() {
+    guessedLettersBox.innerHTML = "";
+for (const letter of guessedLetters) {
+    const li = document.createElement("li");
+    li.innerText = letter;
+    guessedLettersBox.append(li);
+    }
+};
+
+const updateWordInProgress = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    const revealWord = [];
+    for (const letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+            revealWord.push(letter.toUpperCase());
+        } else {
+            revealWord.push("●");
+        }
+    }
+    wordInProgress.innerText = revealWord.join("");
+    youWin();
+};
+
+const youWin = function() {
+    if (word.toUpperCase() === wordInProgress.innerText) {
+        message.classList.add("win");
+        message.innerHTML = `<p class="highlight">It's about time you guessed the damn word! Congrats I guess...</p>`;
     }
 };
