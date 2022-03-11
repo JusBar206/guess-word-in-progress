@@ -7,14 +7,14 @@ const remainingGuessesSpan = document.querySelector(".remaining span");
 const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
-const word = "awesome";
-const guessedLetters = [];
-const remainingGuesses = 8;
+let word = "awesome";
+let guessedLetters = [];
+let remainingGuesses = 8;
 
 const getWord = async function() {
     const response = await fetch ("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
-    const words = await response.text();
-    const wordArray = words.split("\n");
+    let word = await response.text();
+    const wordArray = word.split("\n");
     const randomIndex = Math.floor(Math.random() * wordArray.length);
     word = wordArray[randomIndex].trim();
     placeholder(word);
@@ -154,7 +154,7 @@ message.innerText = "";
 getWord();
 
 //show the right ui element
-guessButton.classList.remove("hide");f
+guessButton.classList.remove("hide");
 playAgainButton.classList.add("hide");
 remainingGuessesElement.classList.remove("hide");
 guessedLettersBox.classList.remove("hide");
